@@ -37,7 +37,7 @@ workflows:
       #     requires:
       #       - say_hello
       # - env_var
-      - save_hello_world_output:
+      - save_hello_world_output
           # requires:
           #   - say_hello
       - print_output_file:
