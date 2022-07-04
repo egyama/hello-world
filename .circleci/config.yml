@@ -11,7 +11,7 @@ jobs:
     steps:
       - run:
           command: |
-              "echo World!" > file.txt
+              echo "World!" > file.txt
       - persist_to_workspace:
           root: /tmp/workspaces
           paths:
