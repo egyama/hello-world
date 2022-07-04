@@ -5,23 +5,45 @@ jobs:
       - image:  circleci/node:13.8.0
     steps:
       - run: "echo Hello, "
-  say_world:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run: "echo World!"
-  env_var:
+  save_hello_world_output:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - run:
-          command:  |
-            echo $MY_ENV_VAR
+          command: |
+              "echo World!" > file.txt
+      - persist_to_workspace:
+          root: /tmp/workspaces
+          paths:
+            - foo
+  print_output_file:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - attach_workspace:
+          at: /tmp/workspaces/foo
+      - run:
+          command: |
+            cat file.txt
+
+  # env_var:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - run:
+  #         command:  |
+  #           echo $MY_ENV_VAR
 workflows:
   say hello world:
     jobs:
       - say_hello
-      - say_world:
+      # - say_world:
+      #     requires:
+      #       - say_hello
+      # - env_var
+      - save_hello_world_output:
           requires:
             - say_hello
-      - env_var
+      - print_output_file:
+          requires:
+            - save_hello_world_output
