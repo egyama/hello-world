@@ -10,17 +10,18 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - run:
-          command: "echo World!" > file.txt
+          command: |
+              "echo World!" > /tmp/workspaces/file.txt
       - persist_to_workspace:
           root: /tmp/workspaces
           paths:
-            - foo
+          - file.txt
   print_output_file:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
-          at: /tmp/workspaces/foo
+          at: /tmp/workspaces/
       - run:
           command: |
             cat file.txt
