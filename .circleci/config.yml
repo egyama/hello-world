@@ -10,6 +10,13 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - run: "echo World!"
+  env_var:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          command:  |
+            echo $MY_ENV_VAR
 workflows:
   say hello world:
     jobs:
@@ -17,3 +24,4 @@ workflows:
       - say_world:
           requires:
             - say_hello
+      - env_var
