@@ -2,12 +2,12 @@ version: 2.1
 jobs:
   # say_hello:
   #   docker:
-  #     - image:  circleci/node:13.8.0
+  #     - image:  cimg/node:18.4.0
   #   steps:
   #     - run: "echo Hello, "
   save_hello_world_output:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:18.4.0
     steps:
       - run: echo "Hello World!" > ~/file.txt
       - persist_to_workspace:
@@ -16,7 +16,7 @@ jobs:
             - file.txt
   print_output_file:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:18.4.0
     steps:
       - attach_workspace:
           at: ~/
@@ -24,7 +24,7 @@ jobs:
 
   # env_var:
   #   docker:
-  #     - image: circleci/node:13.8.0
+  #     - image: cimg/node:18.4.0
   #   steps:
   #     - run:
   #         command:  |
