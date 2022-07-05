@@ -20,7 +20,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: cat file.txt
+      - run: cat ~/file.txt
 
   # env_var:
   #   docker:
