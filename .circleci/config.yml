@@ -1,4 +1,7 @@
 version: 2.1
+defaults: &defaults
+  docker:
+        - image: cimg/node:18.4.0
 jobs:
   # say_hello:
   #   docker:
@@ -6,8 +9,7 @@ jobs:
   #   steps:
   #     - run: "echo Hello, "
   save_hello_world_output:
-    docker:
-      - image: cimg/node:18.4.0
+    <<: *defaults
     steps:
       - run: echo "Hello World!" > ~/file.txt
       - persist_to_workspace:
@@ -15,8 +17,7 @@ jobs:
           paths:
             - file.txt
   print_output_file:
-    docker:
-      - image: cimg/node:18.4.0
+    <<: *defaults
     steps:
       - attach_workspace:
           at: ~/
