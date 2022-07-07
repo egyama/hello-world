@@ -2,6 +2,10 @@ version: 2.1
 defaults: &defaults
   docker:
         - image: cimg/node:18.4.0
+commands:
+  print_pipeline_id:
+    steps:
+      - run: echo ${CIRCLE_WORKFLOW_ID}
 jobs:
   # say_hello:
   #   docker:
@@ -11,6 +15,7 @@ jobs:
   save_hello_world_output:
     <<: *defaults
     steps:
+      - print_pipeline_id
       - run: |
           echo "Hello World!" > ~/file.txt
           echo "This is pipeline ID << pipeline.id >>" >> ~/file.txt
