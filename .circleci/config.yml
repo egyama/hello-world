@@ -1,53 +1,17 @@
 version: 2.1
-defaults: &defaults
-  docker:
-        - image: cimg/node:18.4.0
-commands:
-  print_pipeline_id:
-    steps:
-      - run: echo ${CIRCLE_WORKFLOW_ID}
-jobs:
-  # say_hello:
-  #   docker:
-  #     - image:  cimg/node:18.4.0
-  #   steps:
-  #     - run: "echo Hello, "
-  save_hello_world_output:
-    <<: *defaults
-    steps:
-      - print_pipeline_id
-      - run: |
-          echo "Hello World!" > ~/file.txt
-          echo "This is pipeline ID << pipeline.id >>" >> ~/file.txt
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - file.txt
-  print_output_file:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: cat ~/file.txt
 
-  # env_var:
-  #   docker:
-  #     - image: cimg/node:18.4.0
-  #   steps:
-  #     - run:
-  #         command:  |
-  #           echo $MY_ENV_VAR
+jobs:
+  my_job:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: exit 1
+      - run:
+          name: on error
+          command: echo "Hello Error!"
+          when: on_fail
+
 workflows:
-  say hello world:
+  my_workflow:
     jobs:
-      # - say_hello
-      # - say_world:
-      #     requires:
-      #       - say_hello
-      # - env_var
-      - save_hello_world_output
-          # requires:
-          #   - say_hello
-      - print_output_file:
-          requires:
-            - save_hello_world_output
+      - my_job
