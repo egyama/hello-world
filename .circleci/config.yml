@@ -11,7 +11,9 @@ jobs:
   save_hello_world_output:
     <<: *defaults
     steps:
-      - run: echo "Hello World!" > ~/file.txt
+      - run: |
+          echo "Hello World!" > ~/file.txt
+          echo "This is pipeline ID << pipeline.id >>" >> ~/file.txt
       - persist_to_workspace:
           root: ~/
           paths:
