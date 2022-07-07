@@ -5,11 +5,15 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: exit 1
+      - run: exit 0
       - run:
           name: on error
           command: echo "Hello Error!"
           when: on_fail
+      - run:
+          name: on success
+          command: echo "Hello Susccess!"
+          when: on_success
 
 workflows:
   my_workflow:
